@@ -143,7 +143,15 @@ function decodeExportUri(uri) {
  * Act as a CLI and ask for `otpauth-migration://` uri and optionally file to store in.
  */
 function promptUserForUri() {
-  const prompt = require("prompt");
+  let prompt;
+  try {
+    prompt = require("prompt");
+  } catch(ex) {
+    console.error("Error! Missing dependencies:")
+    console.error("You need to first run: npm install");
+    process.exit(1);
+  }
+  
   console.log("Enter the URI from Google Authenticator QR code.")
   console.log("The URI looks like otpauth-migration://offline?data=... \n")
 

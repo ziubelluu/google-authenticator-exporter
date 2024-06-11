@@ -42,12 +42,35 @@ describe("Protobuff decoding of QR export data", () => {
         const export1 = testQrCodes['Google-auth-test2-qr1.png']
         const export2 = testQrCodes['Google-auth-test2-qr2.png']
 
-         // When
-         const actualAccounts1 = decodeExportUri(export1)
-         const actualAccounts2 = decodeExportUri(export2)
+        // When
+        const actualAccounts1 = decodeExportUri(export1)
+        const actualAccounts2 = decodeExportUri(export2)
 
-         // Then
+        // Then
         expect(actualAccounts1).toHaveLength(10)
         expect(actualAccounts2).toHaveLength(2)
+    })
+
+    it("Should decode export with SHA512 and 8 digit length code", () => {
+        // Given
+        const export1 = testQrCodes['Google-auth-test-sha512-8digit.png']
+
+        // When
+        console.error(testQrCodes)
+
+        const actualAccounts = decodeExportUri(export1)
+
+        // Then
+        expect(actualAccounts).toHaveLength(1)
+
+        expect(actualAccounts[0]).toEqual({
+            "algorithm": 3,
+            "digits": 2,
+            "issuer": "TOTPgenerator",
+            "name": "TOTPgenerator",
+            "secret": "PWPBFOArrFMYoDSB1NZoYx5vGZM=",
+            "totpSecret": "HVR4CFHAFOWFGGFAGSA5JVTIMMPG6GMT",
+            "type": "OTP_TOTP"
+        })
     })
 })

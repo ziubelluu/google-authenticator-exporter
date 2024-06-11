@@ -128,6 +128,16 @@ function toJson(filename, saveToFileInput, accounts) {
   }
 }
 
+/**
+ * @param {string} uri The raw QR code uri
+ * @returns decoded data with account info
+ */
+function decodeExportUri(uri) {
+  const queryParams = new URL(uri).search;
+  const data = new URLSearchParams(queryParams).get("data");
+
+  return decode(data);
+}
 
 /**
  * Act as a CLI and ask for `otpauth-migration://` uri and optionally file to store in.
@@ -170,10 +180,7 @@ function promptUserForUri() {
     if (err) { return console.error(err); }
 
     const uri = result.totpUri;
-    const queryParams = new URL(uri).search;
-    const data = new URLSearchParams(queryParams).get("data");
-
-    const accounts = decode(data);
+    const accounts = decodeExportUri(uri);
 
     switch(mode){
       case resultType.QRCODE:
@@ -187,4 +194,9 @@ function promptUserForUri() {
   })
 }
 
-promptUserForUri();
+exports.decodeExportUri = decodeExportUri;
+
+if (require.main === module) {
+  // Wont run inside tests where this file is just imported
+  promptUserForUri();
+}

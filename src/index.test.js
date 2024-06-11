@@ -17,22 +17,22 @@ describe("Protobuff decoding of QR export data", () => {
         expect(actualAccounts).toHaveLength(3)
 
         expect(actualAccounts[0]).toEqual({
-            "algorithm": "ALGO_SHA1",
-            "digits": 1,
+            "algorithm": "SHA1",
+            "digits": "SIX",
             "name": "Test account 1",
             "secret": "SGVsbA8h3q2+6A==",
             "totpSecret": "JBSWY3APEHPK3PXI",
-            "type": "OTP_TOTP",
+            "type": "TOTP",
         })
 
         expect(actualAccounts[2]).toEqual({
-            "algorithm": "ALGO_SHA1",
+            "algorithm": "SHA1",
             "counter": "1",
-            "digits": 1,
+            "digits": "SIX",
             "name": "Counter key 1",
             "secret": "AESNbGQvO+MdHw==",
             "totpSecret": "ABCI23DEF456GHI7",
-            "type": "OTP_HOTP",
+            "type": "HOTP",
         })
     })
 
@@ -64,13 +64,13 @@ describe("Protobuff decoding of QR export data", () => {
         expect(actualAccounts).toHaveLength(1)
 
         expect(actualAccounts[0]).toEqual({
-            "algorithm": 3,
-            "digits": 2,
+            "algorithm": "SHA512",
+            "digits": "EIGHT",
             "issuer": "TOTPgenerator",
             "name": "TOTPgenerator",
             "secret": "PWPBFOArrFMYoDSB1NZoYx5vGZM=",
             "totpSecret": "HVR4CFHAFOWFGGFAGSA5JVTIMMPG6GMT",
-            "type": "OTP_TOTP"
+            "type": "TOTP"
         })
     })
 })

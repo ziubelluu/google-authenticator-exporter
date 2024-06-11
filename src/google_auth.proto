@@ -9,22 +9,23 @@ package googleauth;
 message MigrationPayload {
   enum Algorithm {
     ALGORITHM_UNSPECIFIED = 0;
-    ALGORITHM_SHA1 = 1;
-    ALGORITHM_SHA256 = 2;
-    ALGORITHM_SHA512 = 3;
-    ALGORITHM_MD5 = 4;
+    SHA1 = 1;
+    SHA256 = 2;
+    SHA512 = 3;
+    MD5 = 4;
   }
 
   enum DigitCount {
     DIGIT_COUNT_UNSPECIFIED = 0;
-    DIGIT_COUNT_SIX = 1;
-    DIGIT_COUNT_EIGHT = 2;
+    SIX = 1;
+    EIGHT = 2;
+    SEVEN = 3;
   }
 
   enum OtpType {
     OTP_TYPE_UNSPECIFIED = 0;
-    OTP_TYPE_HOTP = 1;
-    OTP_TYPE_TOTP = 2;
+    HOTP = 1;
+    TOTP = 2;
   }
 
   message OtpParameters {
@@ -35,6 +36,7 @@ message MigrationPayload {
     DigitCount digits = 5;
     OtpType type = 6;
     int64 counter = 7;
+    string unique_id = 8;
   }
 
   repeated OtpParameters otp_parameters = 1;

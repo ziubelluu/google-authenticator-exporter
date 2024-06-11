@@ -9,8 +9,6 @@ describe("Protobuff decoding of QR export data", () => {
         const export1 = testQrCodes['Google-auth-test-qr.png']
 
         // When
-        console.error(testQrCodes)
-
         const actualAccounts = decodeExportUri(export1)
 
         // Then

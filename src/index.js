@@ -47,6 +47,10 @@ function decode(data) {
 
   const payload = decodeProtobuf(buffer);
 
+  if (payload.version != "1") {
+    console.error(`Expected payload version 1, but was ${payload.version}! Please comment your payload version (which is ${payload.version}), Google Authenticator app version and how many 2FA codes you exported in https://github.com/krissrex/google-authenticator-exporter/issues/23 .`)
+  }
+
   const accounts = payload.otpParameters.map(account => {
     account.totpSecret = toBase32(account.secret);
     return account;
